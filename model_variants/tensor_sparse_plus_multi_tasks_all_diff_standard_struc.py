@@ -1,5 +1,5 @@
 import autograd.numpy as np
-from autograd import multigrad
+from autograd import grad
 import time
 import random
 
@@ -276,7 +276,7 @@ def learn_HAT_SGD_adagrad(case, sps_tensor_useritemf, sps_tensor_userwordf, sps_
 	sum_square_gradients_W1 = np.zeros_like(W1)
 	sum_square_gradients_W2 = np.zeros_like(W2)
 
-	mg = multigrad(cost, argnums=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+	mg = grad(cost, argnum=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
 
 	# SGD procedure
 	for i in range(num_iter):
