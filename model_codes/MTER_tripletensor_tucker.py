@@ -212,7 +212,7 @@ rec_item_num = 0
 temp_feature_vector = []
 
 for i in range(U_num):
-	print(i)
+	#print(i)
 	rec_item_num = 0
 	itemrec_for_user = np.zeros((I_num,1))
 	purchased = 0
