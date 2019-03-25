@@ -18,10 +18,10 @@ fin_uifw_test_entry = open('../yelp_restaurant_recursive_entry_sigir/yelp_recurs
 fin_feature_map = open('../yelp_restaurant_recursive_entry_sigir/yelp_recursive.featuremap', encoding='UTF-8')
 fin_word_map = open('../yelp_restaurant_recursive_entry_sigir/yelp_recursive.wordmap', encoding='UTF-8')
 
-fout_itemrank = open('../Result/yelp_itemrec_15151012_forbpr700.reclist', 'w')
+fout_itemrank = open('../Result/yelp_itemrec_15151012_forbpr100.reclist', 'w')
 #fout_featurerank = open('../Result/yelp_featurerec_allshared.reclist', 'w')
 #fout_wordrank = open('../Result/yelp_wordrec_allshared.reclist', 'w')
-fout_rec_explanations = open('../Result/yelp_itemrec_15151012_forbpr700.explanation', 'w')
+fout_rec_explanations = open('../Result/yelp_itemrec_15151012_forbpr100.explanation', 'w')
 
 U0_dim = 15
 U1_dim = 0
