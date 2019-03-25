@@ -38,7 +38,7 @@ W1_dim = 0
 W2_dim = 0
 lmd_BPR = 100
 
-num_iter = 100  # should be around 200k
+num_iter = 150000  # should be around 150k
 
 feature_maplines = fin_feature_map.readlines()
 feature_map = {}

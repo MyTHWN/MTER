@@ -29,8 +29,8 @@ def cost_abs_sparse_BPR_SGD(G1, G2, G3, U0, U1, U2, I0, I1, I2, F0, F1, F2, F3, 
 	error_square2 = 0
 	error_square3 = 0
 	error_BPR = 0
-	element_num_iter = 300
-	BPR_pair_num = 100
+	element_num_iter = 30
+	BPR_pair_num = 50
 	lmd_reg = 0.05
 
 #loss of item/feature recommendation task
