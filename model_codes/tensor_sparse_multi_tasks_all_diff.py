@@ -33,7 +33,7 @@ def cost_abs_sparse_BPR_SGD(G1, G2, G3, U0, U1, U2, I0, I1, I2, F0, F1, F2, F3, 
 	BPR_pair_num = 50
 	lmd_reg = 0.05
 
-#loss of item/feature recommendation task
+	#loss of item/feature recommendation task
 	for kkk in range(element_num_iter):
 		[key] = random.sample(element_list_useritemf,1)
 		index = key[1:-1].split(',')
@@ -44,6 +44,7 @@ def cost_abs_sparse_BPR_SGD(G1, G2, G3, U0, U1, U2, I0, I1, I2, F0, F1, F2, F3, 
 		tensor_value2 = np.einsum(cases[case]['HA_sub'], tensor_value1[0:I0_dim], I0[index[1]]) + np.einsum(cases[case]['HA_sub'], tensor_value1[I0_dim:(I0_dim+I1_dim)], I1[index[1]])
 		tensor_value = np.einsum(cases[case]['HAT_sub'], tensor_value2[0:F0_dim], F0[index[2]]) + np.einsum(cases[case]['HAT_sub'], tensor_value2[F0_dim:(F0_dim+F1_dim)], F1[index[2]])
 		error_square1 += (tensor_value - sps_tensor_useritemf[key])**2
+		print(tensor_value, sps_tensor_useritemf[key])
 	error_square1 = error_square1/element_num_iter
 	
 	for sss in range(BPR_pair_num):

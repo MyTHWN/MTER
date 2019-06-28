@@ -182,8 +182,6 @@ for line in uifw_test_lines:
 print("train size:" + str(cnt_train) + '\n')
 print("test size:" + str(cnt_test) + '\n')
 
-
-
 #training
 (G1,G2,G3,U0,U1,U2,I0,I1,I2,F0,F1,F2,F3,W0,W1,W2) = tsmtr.learn_HAT_SGD_adagrad(case, sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, 
 								   U0_dim, U1_dim, U2_dim, I0_dim, I1_dim, I2_dim, F0_dim,F1_dim,F2_dim,F3_dim, W0_dim,W1_dim,W2_dim, U_num, I_num, F_num+1, W_num, lmd_BPR,

@@ -1,0 +1,12 @@
+users who have more than 5 reviews
+items who got more than 15 reviews
+number of features appearing in the dataset: 5000 - 99999999
+minimum features each review: 2
+
+numUsers:10561
+numItems:13428
+numFeats:101
+num ratings:75407
+rating / user:7.140138244484424
+rating / item:5.615653857610962
+sparse ratio of tensor:8.966864240893564e-05%
