@@ -7,7 +7,7 @@ Please refer to our paper ['Explainable Recommendation via Multi-Task Learning i
 This is the original version. Later we will release more organized and efficient implementations. Feel free to email me if any confusions. Thank you!
 
 Please consider to cite:
-@inproceedings{Wang:2018:ERV:3209978.3210010,
+@inproceedings{Wang:2018:ERV:3209978.3210010, <br>
  author = {Wang, Nan and Wang, Hongning and Jia, Yiling and Yin, Yue},
  title = {Explainable Recommendation via Multi-Task Learning in Opinionated Text Data},
  booktitle = {The 41st International ACM SIGIR Conference on Research \&\#38; Development in Information Retrieval},
