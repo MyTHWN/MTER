@@ -6,7 +6,8 @@ Please refer to our paper ['Explainable Recommendation via Multi-Task Learning i
 
 This is the original version. Later we will release more organized and efficient implementations. Feel free to email me if any confusions. Thank you!
 
-Please consider to cite:<br>
+Please consider to cite:
+'''
 @inproceedings{Wang:2018:ERV:3209978.3210010, <br>
  author = {Wang, Nan and Wang, Hongning and Jia, Yiling and Yin, Yue},<br>
  title = {Explainable Recommendation via Multi-Task Learning in Opinionated Text Data},<br>
@@ -24,3 +25,4 @@ Please consider to cite:<br>
  address = {New York, NY, USA},<br>
  keywords = {explainable recommendation, multi-task learning, sentiment analysis, tensor decomposition},<br>
 } 
+'''
