@@ -6,7 +6,7 @@ Please refer to our paper ['Explainable Recommendation via Multi-Task Learning i
 
 Feel free to contact me if any questions. Thank you!
 
-Please consider to cite:
+If you find this helpful, please consider to cite:
 ```
 @inproceedings{Wang:2018:ERV:3209978.3210010,
  author = {Wang, Nan and Wang, Hongning and Jia, Yiling and Yin, Yue},
