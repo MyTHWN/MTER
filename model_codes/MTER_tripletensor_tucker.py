@@ -165,6 +165,12 @@ for line in uifw_train_lines:
 		sps_tensor_itemwordf[str([i_idx,f_idx,w_idx])] = 0
 	sps_tensor_itemwordf[str([i_idx,f_idx,w_idx])] += 1
 
+for key in sps_tensor_userwordf.keys():
+			sps_tensor_userwordf[key] = 1 + 4 * ( 2 / (1 + np.exp(0 - sps_tensor_userwordf[key]))-1)
+
+for key in sps_tensor_itemwordf.keys():
+		sps_tensor_itemwordf[key] = 1 + 4 * ( 2 / (1 + np.exp(0 - sps_tensor_itemwordf[key]))-1)
+
 for line in uifw_test_lines:
 	cnt_train += 1
 	eachline = line.strip().split(',')
@@ -178,6 +184,9 @@ for line in uifw_test_lines:
 		sps_tensor_useritemfw_test[str([u_idx,i_idx,f_idx,w_idx])] = 0
 	sps_tensor_useritemfw_test[str([u_idx,i_idx,f_idx,w_idx])] += 1
 	useritemfeature_test[(u_idx,i_idx,f_idx)] = 1
+
+for key in sps_tensor_useritemfw_test.keys():
+		sps_tensor_useritemfw_test[key] = 1 + 4 * ( 2 / (1 + np.exp(0 - sps_tensor_useritemfw_test[key]))-1)
 
 print("train size:" + str(cnt_train) + '\n')
 print("test size:" + str(cnt_test) + '\n')
