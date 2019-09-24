@@ -124,7 +124,7 @@ def paraserver(useritem_ls, sps_tensor_useritemf, sps_tensor_userwordf, sps_tens
 	eps = 1e-6
 	print('Training Started')
 
-	element_num_iter = 200
+	element_num_iter = 50
 	BPR_pair_num = 1000
 	lmd_reg = 0.1
 
