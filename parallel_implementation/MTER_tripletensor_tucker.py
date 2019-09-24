@@ -102,7 +102,7 @@ if __name__ == '__main__':
 	F_dim = 12
 	W_dim = 12
 	lmd_BPR = 5
-	num_iter = 20000
+	num_iter = 200000
 
 	num_processes = 4
 	lr = 0.1
