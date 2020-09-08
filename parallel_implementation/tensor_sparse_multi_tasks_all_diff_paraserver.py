@@ -125,7 +125,7 @@ def paraserver(useritem_ls, sps_tensor_useritemf, sps_tensor_userwordf, sps_tens
 	print('Training Started')
 
 	element_num_iter = 50
-	BPR_pair_num = 1000
+	BPR_pair_num = 100
 	lmd_reg = 0.1
 
 	sum_square_gradients_G1 = np.zeros_like(G1)
