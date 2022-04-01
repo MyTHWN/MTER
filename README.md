@@ -1,8 +1,7 @@
 # MTER
+['Explainable Recommendation via Multi-Task Learning in Opinionated Text Data'](https://dl.acm.org/citation.cfm?id=3210010)
 
 A parallel implementation of MTER with derived gradients based on the idea of parameter server. Directly run MTER_tripletensor_tucker.py in folder 'parallel_implementation' to test our MTER model by tunning hyper parameters. The learned models are stored in 'Results'. The processed Yelp dataset is included in yelp_restaurant_recursive_entry_sigir.
-
-Please refer to our paper ['Explainable Recommendation via Multi-Task Learning in Opinionated Text Data'](https://dl.acm.org/citation.cfm?id=3210010) for more details.
 
 If you are using this implementation for your reserach, please cite:
 ```
