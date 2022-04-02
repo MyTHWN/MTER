@@ -1,5 +1,4 @@
-import autograd.numpy as np
-from autograd import grad
+import numpy as np
 import time
 import random
 import multiprocessing as mp
@@ -28,11 +27,12 @@ def squrerror(G,U,I,F,key,true_rating):
 	return (pred_rating-true_rating)**2
 
 
-def grad_worker_mse(sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, lmd_BPR, G1, G2, G3, U, I, F, W, \
-					error_square, error_bpr, lock, q_samples_mse, \
-                   del_g1, del_g2, del_g3, del_u, del_i, del_f, del_w, num_grad):
+def grad_worker_mse(sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, 
+		    lmd_BPR, G1, G2, G3, U, I, F, W,
+		    error_square, error_bpr, lock, q_samples_mse, 
+		    del_g1, del_g2, del_g3, del_u, del_i, del_f, del_w, num_grad):
 	eps = 1e-8
-	while 1:
+	while True:
 		if not q_samples_mse.empty():
 			sample = q_samples_mse.get()
 			if not sample:
@@ -82,10 +82,11 @@ def grad_worker_mse(sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemw
 			lock.release()
 
 
-def grad_worker_bpr(sps_tensor_useritemf, overall_rating_matrix, lmd_BPR, G1, U, I, F, error_square, error_bpr, lock, q_samples_bpr, \
-                   del_g1, del_u, del_i, del_f, num_grad):
+def grad_worker_bpr(sps_tensor_useritemf, overall_rating_matrix, 
+		    lmd_BPR, G1, U, I, F, error_square, error_bpr, lock, q_samples_bpr,
+		    del_g1, del_u, del_i, del_f, num_grad):
 	eps = 1e-8
-	while 1:
+	while True:
 		if not q_samples_bpr.empty():
 			sample = q_samples_bpr.get()
 			if not sample:
@@ -118,9 +119,10 @@ def grad_worker_bpr(sps_tensor_useritemf, overall_rating_matrix, lmd_BPR, G1, U,
 			lock.release()
 			
 
-def paraserver(useritem_ls, sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, \
-				   lmd_BPR, num_iter, lr, G1, G2, G3, U, I, F, W, error_square, error_bpr, q_samples_mse, q_samples_bpr, \
-                   del_g1, del_g2, del_g3, del_u, del_i, del_f, del_w, num_grad, num_processes):
+def paraserver(useritem_ls, sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, 
+	       lmd_BPR, num_iter, lr, G1, G2, G3, U, I, F, W, 
+	       error_square, error_bpr, q_samples_mse, q_samples_bpr,
+	       del_g1, del_g2, del_g3, del_u, del_i, del_f, del_w, num_grad, num_processes):
 	eps = 1e-6
 	print('Training Started')
 
@@ -162,10 +164,13 @@ def paraserver(useritem_ls, sps_tensor_useritemf, sps_tensor_userwordf, sps_tens
 		del_w[:] = 0
 
 		for i in range(num_processes):
-			q_samples_mse.put((mse_sample_1[mse_per_proc*i:mse_per_proc*(i+1)], mse_sample_2[mse_per_proc*i:mse_per_proc*(i+1)], mse_sample_3[mse_per_proc*i:mse_per_proc*(i+1)]))
-			q_samples_bpr.put((bpr_sample_ele[bpr_per_proc*i:bpr_per_proc*(i+1)], item2_sample[bpr_per_proc*i:bpr_per_proc*(i+1)]))
+			q_samples_mse.put((mse_sample_1[mse_per_proc*i:mse_per_proc*(i+1)], 
+					   mse_sample_2[mse_per_proc*i:mse_per_proc*(i+1)], 
+					   mse_sample_3[mse_per_proc*i:mse_per_proc*(i+1)]))
+			q_samples_bpr.put((bpr_sample_ele[bpr_per_proc*i:bpr_per_proc*(i+1)], 
+					   item2_sample[bpr_per_proc*i:bpr_per_proc*(i+1)]))
 
-		while 1:
+		while True:
 			if num_grad.value == 2 * num_processes:
 				break
 
@@ -210,26 +215,28 @@ def paraserver(useritem_ls, sps_tensor_useritemf, sps_tensor_userwordf, sps_tens
 		F[F < 0] = 0
 		W[W < 0] = 0
 
-		if element_num_iter: print('RMSE:', np.sqrt(error_square.value / 3 / element_num_iter))
-		if BPR_pair_num: print('BPR:', error_bpr.value / BPR_pair_num)
+		if element_num_iter: 
+			print('RMSE:', np.sqrt(error_square.value / 3 / element_num_iter))
+		if BPR_pair_num: 
+			print('BPR:', error_bpr.value / BPR_pair_num)
 		print('------------------------------------------------------------------------------')
 
 		nowtime = time.time()
-		timeleft = (nowtime - starttime)*(num_iter-iteration-1) 
+		timeleft = (nowtime - starttime) * (num_iter-iteration-1) 
 
 		if timeleft/60 > 60:
-			print('time left: ' + str(int(timeleft/3600)) + ' hr ' + str(int(timeleft/60%60)) + ' min ' + str(int(timeleft%60)) + ' s')
+			print(f'time left: {int(timeleft/3600)} hr ' + f'{int(timeleft/60%60)} min ' + f'{int(timeleft%60)} s')
 		else:
-			print("time left: " + str(int(timeleft/60)) + ' min ' + str(int(timeleft%60)) + ' s')
+			print(f'time left: {int(timeleft/60)} min ' + f'{int(timeleft%60)} s')
     
 	for _ in range(num_processes):
 		q_samples_bpr.put(0)
 		q_samples_mse.put(0)
 
 
-def train(overall_rating_matrix, sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, useritem_ls, \
-			 U_dim, I_dim, F_dim, W_dim, U_num, I_num, F_num, W_num, lmd_BPR, \
-			 num_iter, num_processes, lr, cost_function='abs', random_seed=0, eps=1e-8):
+def train(overall_rating_matrix, sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, useritem_ls,
+	  U_dim, I_dim, F_dim, W_dim, U_num, I_num, F_num, W_num, lmd_BPR,
+	  num_iter, num_processes, lr, cost_function='abs', random_seed=0, eps=1e-8):
 		
 	np.random.seed(random_seed)
 
@@ -282,27 +289,30 @@ def train(overall_rating_matrix, sps_tensor_useritemf, sps_tensor_userwordf, sps
 	error_bpr = mp.Value('d', 0)
 
 	processes = []
-	ps = mp.Process(target=paraserver, \
-                       args=(useritem_ls, sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, \
-				   			lmd_BPR, num_iter, lr, G1, G2, G3, U, I, F, W, error_square, error_bpr, q_samples_mse, q_samples_bpr, \
-                   			del_g1, del_g2, del_g3, del_u, del_i, del_f, del_w, num_grad, num_processes))
+	ps = mp.Process(target=paraserver, 
+			args=(useritem_ls, sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, 
+			      lmd_BPR, num_iter, lr, G1, G2, G3, U, I, F, W, 
+			      error_square, error_bpr, q_samples_mse, q_samples_bpr,
+			      del_g1, del_g2, del_g3, del_u, del_i, del_f, del_w, num_grad, num_processes))
 
 	ps.start()
 	processes.append(ps)
 
     #processes for U, V, W
 	for _ in range(num_processes):
-		p = mp.Process(target=grad_worker_mse, \
-                       args=(sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, lmd_BPR, G1, G2, G3, U, I, F, W, \
-                       		error_square, error_bpr, lock, q_samples_mse, \
-                   			del_g1, del_g2, del_g3, del_u, del_i, del_f, del_w, num_grad))
+		p = mp.Process(target=grad_worker_mse, 
+			       args=(sps_tensor_useritemf, sps_tensor_userwordf, sps_tensor_itemwordf, 
+				     lmd_BPR, G1, G2, G3, U, I, F, W,
+				     error_square, error_bpr, lock, q_samples_mse, 
+				     del_g1, del_g2, del_g3, del_u, del_i, del_f, del_w, num_grad))
 		processes.append(p)
 		p.start()
 	
 	for _ in range(num_processes):
-		p = mp.Process(target=grad_worker_bpr, \
-                       args=(sps_tensor_useritemf, overall_rating_matrix, lmd_BPR, G1, U, I, F, error_square, error_bpr, lock, q_samples_bpr, \
-                   			del_g1, del_u, del_i, del_f, num_grad))
+		p = mp.Process(target=grad_worker_bpr, 
+			       args=(sps_tensor_useritemf, overall_rating_matrix, 
+				     lmd_BPR, G1, U, I, F, error_square, error_bpr, lock, q_samples_bpr, 
+				     del_g1, del_u, del_i, del_f, num_grad))
 		processes.append(p)
 		p.start()
 
