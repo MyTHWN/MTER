@@ -32,7 +32,7 @@ Train model: `python MTER_tripletensor_tucker.py --options XXX`
 The learned model parameters are stored in the folder 'results'. 
 
 ## Citation
-If you find this useful for your reserach, please consider cite:
+If you find this useful for your reserach, please cite:
 ```
 @inproceedings{Wang:2018:ERV:3209978.3210010,
  author = {Wang, Nan and Wang, Hongning and Jia, Yiling and Yin, Yue},
